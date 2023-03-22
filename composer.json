@@ -1,0 +1,43 @@
+{
+    "name": "multisafepay/takeaway-middleware-plugin",
+    "version": "1.0.1",
+    "description": "A takeaway webhooks plug and play package",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+      {
+        "name": "Jose A Rivas",
+        "email": "jose.rivas@multisafepay.com"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "TakeawayPlugin\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Tests\\": "tests/"
+      }
+    },
+    "config": {
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.6",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "require": {
+        "multisafepay/laravel-cast-json-models": "^1.0",
+        "multisafepay/laravel-notification-failure": "^1.0",
+        "multisafepay/laravel-takeaway-models": "dev-main",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MultiSafepay/laravel-takeaway-models"
+        }
+    ]
+}
