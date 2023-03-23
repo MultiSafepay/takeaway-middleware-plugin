@@ -30,34 +30,34 @@ class ApiRequest
         return Order::collection($response);
     }
 
-    public function confirmOrder(Order $order): void
+    public function confirmOrder(string $id, string $orderKey): void
     {
         $data = [
-            'id' => $order->id,
-            'key' => $order->orderKey,
+            'id' => $id,
+            'key' => $orderKey,
             'status' => 'confirmed',
         ];
 
         $this->send('POST', 'status', $data);
     }
 
-    public function changeDeliveryTime(Order $order, Carbon $date): void
+    public function changeDeliveryTime(string $id, string $orderKey, Carbon $date): void
     {
         $data = [
-            'id' => $order->id,
-            'key' => $order->orderKey,
-            'status' => 'error',
+            'id' => $id,
+            'key' => $orderKey,
+            'status' => 'confirmed_change_delivery_time',
             'changedDeliveryTime' => $date->toW3cString(),
         ];
 
         $this->send('POST', 'status', $data);
     }
 
-    public function reportError(Order $order, string $error): void
+    public function reportError(string $id, string $orderKey, string $error): void
     {
         $data = [
-            'id' => $order->id,
-            'key' => $order->orderKey,
+            'id' => $id,
+            'key' => $orderKey,
             'status' => 'error',
             'text' => $error,
         ];
