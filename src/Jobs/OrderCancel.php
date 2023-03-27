@@ -48,6 +48,6 @@ class OrderCancel implements ShouldQueue
     {
         $api = new BackendApi();
 
-        $api->confirm('order-cancel', $this->data['external_id']);
+        $api->confirm('order-cancel', $this->data);
     }
 }

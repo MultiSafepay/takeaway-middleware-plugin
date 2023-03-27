@@ -34,6 +34,6 @@ class OrderAccept implements ShouldQueue
 
         $api = new BackendApi();
 
-        $api->confirm('order-accept', $request['external_id']);
+        $api->confirm('order-accept', $request);
     }
 }
