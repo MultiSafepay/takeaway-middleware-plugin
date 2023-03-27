@@ -16,8 +16,10 @@ return [
         'password' => env('BACKEND_PASSWORD'),
     ],
     'takeaway_api' => [
-        'url' => env('TAKEAWAY_URL'),
-        'username' => env('TAKEAWAY_USERNAME'),
-        'password' => env('TAKEAWAY_PASSWORD'),
+        'apiKey' => env('TAKEAWAY_APIKEY'),
+        'middlewareUrl' => env('TAKEAWAY_MIDDLEWARE_URL'),
+        'version' => env('TAKEAWAY_ALIVE_URL'),
+        'clientKey' => env('TAKEAWAY_CLIENT_KEY'),
+        'orderCancelled' => env('TAKEAWAY_ORDER_CANCELLED_URL'),
     ],
 ];

@@ -12,9 +12,11 @@ class CancelOrder extends Request
     public function rules(): array
     {
         return [
+            'external_id' => 'required|uuid',
             'reason' => 'required|string',
-            'orderKey' => 'required|uuid',
+            'key' => 'required|uuid',
             'id' => 'required|uuid',
+            'restaurant' => 'required|string',
         ];
     }
 }

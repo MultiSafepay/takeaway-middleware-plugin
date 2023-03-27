@@ -8,8 +8,9 @@ use TakeawayPlugin\Http\Requests\CancelOrder;
 use TakeawayPlugin\Http\Requests\ConfirmOrder;
 use TakeawayPlugin\Jobs\OrderAccept;
 use TakeawayPlugin\Jobs\OrderCancel;
-use Illuminate\Http\Request;
 use TakeawayPlugin\Jobs\OrderConfirm;
+use TakeawayPlugin\Jobs\OrderCancelled;
+use Illuminate\Http\Request;
 
 class Order extends Controller
 {
@@ -27,9 +28,16 @@ class Order extends Controller
         $job->dispatch($request->all());
     }
 
-    public function cancel(CancelOrder $request): void
+    public function cancelled(Request $request): void
     {
         $job = new OrderCancel();
+
+        $job->dispatch($request->all());
+    }
+
+    public function cancel(CancelOrder $request): void
+    {
+        $job = new OrderCancelled();
 
         $job->dispatch($request->all());
     }

@@ -9,10 +9,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use TakeawayPlugin\Takeaway\ApiRequest;
 use TakeawayPlugin\Api\ApiRequest as BackendApi;
 
-class OrderCancel implements ShouldQueue
+class OrderCancelled implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Failed;
 
@@ -33,21 +32,8 @@ class OrderCancel implements ShouldQueue
     {
         $this->data = $request;
 
-        $this->cancel();
-        $this->confirmCancel();
-    }
-
-    private function cancel(): void
-    {
-        $api = new ApiRequest($this->data['restaurant']);
-
-        $api->cancelOrder($this->data['id'], $this->data['key'], $this->data['reason']);
-    }
-
-    private function confirmCancel(): void
-    {
         $api = new BackendApi();
 
-        $api->confirm('order-cancel', $this->data['external_id']);
+        $api->confirm('order-cancelled', $request['external_id']);
     }
 }
