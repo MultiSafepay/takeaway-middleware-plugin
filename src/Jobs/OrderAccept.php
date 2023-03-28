@@ -34,6 +34,6 @@ class OrderAccept implements ShouldQueue
 
         $api = new BackendApi();
 
-        $api->confirm('order-accept', $request);
+        $api->webhook('order-accept', $request);
     }
 }

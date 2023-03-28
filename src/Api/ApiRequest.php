@@ -16,7 +16,17 @@ class ApiRequest
     {
         $this->url = config('takeaway.backend_api.url');
     }
-    
+
+    /**
+     * @param string $action
+     * @param array<string, array<string>>|array<string, string> $data
+     * @return array<string, array<string>>|array<string, string>
+     */
+    public function webhook(string $action, array $data): string|array|null
+    {
+        return $this->post('middleware/webhook', $action, $data);
+    }
+
     /**
      * @param string $action
      * @param array<string, array<string>>|array<string, string> $data

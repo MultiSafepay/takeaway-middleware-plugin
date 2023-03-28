@@ -20,6 +20,5 @@ return [
         'middlewareUrl' => env('TAKEAWAY_MIDDLEWARE_URL'),
         'version' => env('TAKEAWAY_ALIVE_URL'),
         'clientKey' => env('TAKEAWAY_CLIENT_KEY'),
-        'orderCancelled' => env('TAKEAWAY_ORDER_CANCELLED_URL'),
     ],
 ];

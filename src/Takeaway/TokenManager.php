@@ -71,7 +71,7 @@ class TokenManager
             'apiKey' => config('takeaway.takeaway_api.apiKey'),
             'restaurant' => $this->restaurant,
             'orderUrl' => "$middlewareUrl/takeaway/orders/accept",
-            'driverUpdateUrl' => "$middlewareUrl/takeaway/delivery_tracking",
+            'driverUpdateUrl' => 'https://nodriverupdates',
             'aliveUrl' => "$middlewareUrl/takeaway/alive",
             'version' => config('takeaway.takeaway_api.version'),
             'clientKey' => config('takeaway.takeaway_api.clientKey'),
