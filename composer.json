@@ -1,6 +1,6 @@
 {
     "name": "multisafepay/takeaway-middleware-plugin",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "A takeaway webhooks plug and play package",
     "type": "library",
     "license": "GPL-3.0-or-later",

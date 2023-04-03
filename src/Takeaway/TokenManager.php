@@ -66,7 +66,7 @@ class TokenManager
 
     private function login(): void
     {
-        $middlewareUrl = config('takeaway.middlewareUrl');
+        $middlewareUrl = config('takeaway.takeaway_api.middlewareUrl');
 
         $payload = [
             'apiKey' => config('takeaway.takeaway_api.apiKey'),
