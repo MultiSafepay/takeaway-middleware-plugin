@@ -84,8 +84,16 @@ class TokenManager
 
     private function refreshToken(): void
     {
-        $response = Http::withToken($this->token)->post($this->refreshUrl)->throw()->json();
+        $response = Http::withToken($this->token)->post($this->refreshUrl);
 
-        $this->set($response);
+        if ($response->successful()) {
+            $this->set($response->json());
+            return;
+        }
+
+        $message = 'Error loggin in refresh backend';
+        $message .= PHP_EOL.' Response: '.print_r($response->json(), true);
+
+        throw new Exception($message);
     }
 }
