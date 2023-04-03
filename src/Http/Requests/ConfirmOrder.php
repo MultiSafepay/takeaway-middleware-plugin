@@ -12,7 +12,6 @@ class ConfirmOrder extends Request
     public function rules(): array
     {
         return [
-            'external_id' => 'required|uuid',
             'deliveryTime' => 'required|date',
             'key' => 'required|uuid',
             'id' => 'required|uuid',

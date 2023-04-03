@@ -11,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use TakeawayPlugin\Takeaway\ApiRequest;
+use TakeawayPlugin\Api\ApiRequest as BackendApi;
 
 class OrderConfirm implements ShouldQueue
 {
@@ -33,8 +34,21 @@ class OrderConfirm implements ShouldQueue
     {
         $this->data = $request;
 
+        $this->acceptOrder();
+        $this->confirmAccepted();
+    }
+
+    private function acceptOrder(): void
+    {
         $api = new ApiRequest($this->data['restaurant']);
 
         $api->confirmOrder($this->data['id'], $this->data['key'], new Carbon($this->data['deliveryTime']));
+    }
+
+    private function confirmAccepted(): void
+    {
+        $api = new BackendApi();
+
+        $api->confirm('order-accept', $this->data);
     }
 }
