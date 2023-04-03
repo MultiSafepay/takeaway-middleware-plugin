@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TakeawayPlugin\Takeaway;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 
@@ -57,7 +58,7 @@ class TokenManager
     /**
      * @param array<string, array<string>>|array<string, string> $data
      */
-    private function set(array &$data): void
+    private function set(array $data): void
     {
         $this->token = $data['token'];
         $this->statusUrl = $data['statusUrl'];
@@ -78,10 +79,17 @@ class TokenManager
             'orderCancelled' => "$middlewareUrl/takeaway/orders/cancelled",
         ];
 
-        $response = Http::post(self::LOGIN_URL, $payload)->throw()->json();
+        $response = Http::post(self::LOGIN_URL, $payload);
 
-        $this->set($response);
+        if ($response->successful()) {
+            $this->set($response->json());
+            Cache::put(self::CACHE_KEY.$this->restaurant, $response);
+            return;
+        }
 
-        Cache::put(self::CACHE_KEY.$this->restaurant, $response);
+        $message = 'Error loggin takeaway, data: '.print_r($payload, true);
+        $message .= PHP_EOL.' Response: '.print_r($response->json(), true);
+
+        throw new Exception($message);
     }
 }

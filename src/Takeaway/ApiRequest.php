@@ -56,7 +56,7 @@ class ApiRequest
         }
 
         $message = 'Error requesting takeaway, data: '.print_r($data, true);
-        $message .= PHP_EOL.' Response: '.$response->json();
+        $message .= PHP_EOL.' Response: '.print_r($response->json(), true);
 
         throw new Exception($message);
     }

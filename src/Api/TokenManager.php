@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TakeawayPlugin\Api;
 
+use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
@@ -57,18 +58,26 @@ class TokenManager
     private function login(): void
     {
         $payload = ['username' => $this->username, 'password' => $this->password];
-        $response = Http::post($this->loginUrl, $payload)->throw()->json();
+        $response = Http::post($this->loginUrl, $payload);
 
-        $this->set($response);
+        if ($response->successful()) {
+            $this->set($response->json());
+            return;
+        }
+
+        $message = 'Error loggin in backend, data: '.print_r($payload, true);
+        $message .= PHP_EOL.' Response: '.print_r($response->json(), true);
+
+        throw new Exception($message);
     }
 
     /**
-     * @param array<string, array<string>>|array<string, string> $response
+     * @param array<string, array<string>>|array<string, string> $data
      */
-    private function set(array &$response): void
+    private function set(array $data): void
     {
-        $this->token = $response['token'];
-        $this->expires = new Carbon($response['expires']);
+        $this->token = $data['token'];
+        $this->expires = new Carbon($data['expires']);
 
         Cache::put(self::CACHE_KEY, ['token' => $this->token, 'expires' => $this->expires]);
     }

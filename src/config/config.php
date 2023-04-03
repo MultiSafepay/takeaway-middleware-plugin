@@ -18,7 +18,7 @@ return [
     'takeaway_api' => [
         'apiKey' => env('TAKEAWAY_APIKEY'),
         'middlewareUrl' => env('TAKEAWAY_MIDDLEWARE_URL'),
-        'version' => env('TAKEAWAY_ALIVE_URL'),
+        'version' => env('TAKEAWAY_VERSION'),
         'clientKey' => env('TAKEAWAY_CLIENT_KEY'),
     ],
 ];
